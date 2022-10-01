@@ -6,11 +6,15 @@ export default async function handler(
 ) {
   const { success } = req.query;
 
-  const targetUrl = `https://${process.env.VERCEL_URL}api/consumer/${
+  const targetUrl = `https://${process.env.VERCEL_URL}/api/consumer/${
     success ? "success" : "failure"
   }`;
 
+  console.log({ targetUrl })
+
   const fetchUrl = `https://api.serverlessq.com?id=${process.env.SERVERLESSQ_QUEUE_ID}&target=${targetUrl}`;
+
+  console.log({ fetchUrl })
 
   const result = await fetch(fetchUrl, {
     headers: {
