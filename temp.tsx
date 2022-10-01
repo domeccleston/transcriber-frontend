@@ -11,15 +11,9 @@ const Home: NextPage = () => {
     thumbnail_url: "",
   });
 
-  async function download(video: string) {
-    const dl = await fetch(`/api/download?url=${video}`);
-  }
-
   async function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    const { title } = await fetchMetadata(video);
-    const id = getYoutubeID(video);
-    const thumbnail_url = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+    const { thumbnail_url, title } = await fetchMetadata(video);
     setMetaData({ title, thumbnail_url });
   }
 
@@ -46,7 +40,8 @@ const Home: NextPage = () => {
     return str.indexOf("youtube") > -1;
   }
 
-  function getYoutubeID(url: string) {
+
+  function getYoutubeID(url: string) {  
     var regExp =
       /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     var match = url.match(regExp);
@@ -63,8 +58,8 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
-      <h1 className="text-5xl pb-4">Video2Blog</h1>
-      <form className="pb-4" onSubmit={handleSubmit}>
+      <h1 className="text-5xl pb-8">Video2Blog</h1>
+      <form onSubmit={handleSubmit}>
         <input
           className="px-4 py-2 border-2 min-w-[600px]"
           placeholder="https://youtube.com/..."
@@ -74,21 +69,13 @@ const Home: NextPage = () => {
         />
         {/* <p className="text-red-500">Please enter a valid Youtube URL.</p> */}
         <button className="ml-2 border-2 px-4 py-2">Go</button>
+        {metaData.thumbnail_url && (
+          <>
+            <h1>{metaData.title}</h1>
+            <Image src={metaData.thumbnail_url} width="300px" height="100px" />
+          </>
+        )}
       </form>
-
-      {metaData.thumbnail_url && (
-        <>
-          <h1 className="max-w-[400px] font-medium text-center pb-4">
-            {metaData.title}
-          </h1>
-          <div className="pb-4">
-            <Image src={metaData.thumbnail_url} width="400px" height="250px" />
-          </div>
-          <button onClick={download} className="ml-2 border-2 px-4 py-2">
-            Download
-          </button>
-        </>
-      )}
     </div>
   );
 };

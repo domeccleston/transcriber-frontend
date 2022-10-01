@@ -1,0 +1,3 @@
+- create simple form in react that logs to console [x]
+- validate that URL is valid URL + contains youtube [x]
+- fetch youtube thumbnail on submit [ ]
