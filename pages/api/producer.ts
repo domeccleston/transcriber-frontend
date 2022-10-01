@@ -4,11 +4,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { success } = req.query;
+  const { video } = req.query;
 
-  const targetUrl = `https://${process.env.VERCEL_URL}/api/consumer/${
-    success ? "success" : "failure"
-  }`;
+  const targetUrl = `https://transcriber-qhhx4hi3kq-ue.a.run.app/download?video=${video}`
 
   console.log({ targetUrl })
 
