@@ -84,7 +84,7 @@ const Home: NextPage = () => {
           <div className="pb-4">
             <Image src={metaData.thumbnail_url} width="400px" height="250px" />
           </div>
-          <button onClick={download} className="ml-2 border-2 px-4 py-2">
+          <button className="ml-2 border-2 px-4 py-2">
             Download
           </button>
         </>
